@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libs/org.quietmodem.Quiet/quiet/quiet.iml" filepath="$PROJECT_DIR$/libs/org.quietmodem.Quiet/quiet/quiet.iml" />
       <module fileurl="file://$PROJECT_DIR$/transmit.iml" filepath="$PROJECT_DIR$/transmit.iml" />
     </modules>
   </component>
