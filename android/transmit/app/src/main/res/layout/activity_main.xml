@@ -9,8 +9,51 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="io.stoh.transmit.MainActivity">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send Message"
+        android:id="@+id/btn_send"
+        android:layout_marginTop="42dp"
+        android:onClick="send_sound_message"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Message Received: "
+        android:id="@+id/textView2"
+        android:layout_below="@+id/btn_send"
+        android:layout_alignStart="@+id/btn_send"
+        android:layout_marginTop="104dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="none"
+        android:id="@+id/tv_receive"
+        android:layout_below="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="29dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Receive Message"
+        android:id="@+id/btn_receive"
+        android:layout_alignTop="@+id/btn_send"
+        android:onClick="receive_sound_message"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Status"
+        android:id="@+id/tv_status"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
