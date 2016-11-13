@@ -147,9 +147,9 @@ function createServer() {
     console.log("Client Connected");
     socket.on('data', function(message) {
       count += 1;
-      fileName = "images/picture" + count + ".png";
+      fileName = count + ".png";
       //client sent message to server (file)
-      var outStream = fs.createWriteStream(filename);
+      var outStream = fs.createWriteStream(fileName);
       outStream.write(message);
       outStream.end();
     });
