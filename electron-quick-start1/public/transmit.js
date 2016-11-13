@@ -1,3 +1,11 @@
+function getFile() {
+    msg = {};
+            $.post("http://localhost:3000/send", msg, function(data, status) {
+            console.log(data);
+            console.log(status);
+        });
+}
+
 var mode = "";
 
 var TextReceiver = (function() {
