@@ -1,11 +1,17 @@
-function getFile() {
-    msg = {};
-            $.post("http://localhost:3000/send", msg, function(data, status) {
+function sendFile() {
+    console.log("Sending File");
+    var path = $("#path").val();
+    console.log(path);
+            msg = {
+            path: path
+        }
+        console.log(data);
+        $.post("http://localhost:3000/send", msg, function(data, status) {
             console.log(data);
             console.log(status);
         });
-}
 
+}
 var mode = "";
 
 var TextReceiver = (function() {

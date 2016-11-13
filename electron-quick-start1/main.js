@@ -1,10 +1,7 @@
 const electron = require('electron')
-// var dialog = remote.require('dialog');
-// Module to control application life.
 const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
-var remote = require('remote');
 
 const path = require('path')
 const url = require('url')
@@ -126,11 +123,10 @@ exp.post('/connect/server', function(req, res) {
 });
 
 exp.post('/send', function(req, res) {
+  path = req.body.path;
+  client.write(path);
+  res.send("File Sent");
 
-// Note that the previous example will handle only 1 file, if you want that the dialog accepts multiple files, then change the settings:
-// And obviously , loop through the fileNames and read every file manually
-
-res.send("getting file!!!!!!!");
 })
 
 

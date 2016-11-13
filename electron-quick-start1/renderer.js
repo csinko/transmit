@@ -3,12 +3,3 @@
 // All of the Node.js APIs are available in this process.
 
 console.log("STARTING RENDERERR");
-var remote = require('remote');
-var dialog = remote.require('dialog');
-var fs = require('fs');
-
-
-dialog.showOpenDialog({ properties: [ 'openFile', 'multiSelections',function(fileNames){
-  console.log(fileNames);
-}]});
-

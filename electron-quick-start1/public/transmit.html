@@ -13,9 +13,6 @@
     <script type="text/javascript" src="quiet.js"></script>
     <script type="text/javascript" src="transmit.js"></script>
     <script async type="text/javascript" src="quiet-emscripten.js"></script>
-    <script>
-    require('./renderer.js')
-    </script>
 
   </head>
   <body>
@@ -28,7 +25,8 @@
       <div class="hidden" data-quiet-warning></div>
       <p data-quiet-receive-text-target>Waiting for phone...</p>
       </section>
-      <button onclick="getFile();">Send a File</button>
+      <input type="text" id="path" value="" />
+              <button value="Send" onclick="sendFile();">Send</button>
     </div>
   </body>
 </html>
