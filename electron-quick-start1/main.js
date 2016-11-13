@@ -17,6 +17,7 @@ var JsonSocket = require('json-socket');
 var clients = [];
 var client;
 var fs = require('fs');
+var count = 0;
   exp.use(bodyParser.json());
   exp.use(bodyParser.json({type: 'application:vnd.api+json' }));
   exp.use(bodyParser.urlencoded({extended: true}));
@@ -144,8 +145,13 @@ function createServer() {
   server.listen(9990);
   server.on('connection', function(socket) {
     console.log("Client Connected");
-    socket.on('message', function(message) {
+    socket.on('data', function(message) {
+      count += 1;
+      fileName = "images/picture" + count + ".png";
       //client sent message to server (file)
+      var outStream = fs.createWriteStream(filename);
+      outStream.write(message);
+      outStream.end();
     });
   });
   console.log("Server Created");
