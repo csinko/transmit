@@ -15,6 +15,8 @@ var net = require('net');
 var exp = express();
 var JsonSocket = require('json-socket');
 var clients = [];
+var client;
+var fs = require('fs');
   exp.use(bodyParser.json());
   exp.use(bodyParser.json({type: 'application:vnd.api+json' }));
   exp.use(bodyParser.urlencoded({extended: true}));
@@ -114,7 +116,7 @@ exp.post('/connect/phone', function(req, res) {
 });
 
 exp.post('/connect/server', function(req, res) {
-  var client = new net.Socket();
+  client = new net.Socket();
   console.log(req.body);
   client.connect(9990, req.body.ip, function() {
     console.log("Connected to Server");
@@ -123,8 +125,14 @@ exp.post('/connect/server', function(req, res) {
 });
 
 exp.post('/send', function(req, res) {
-  path = req.body.path;
-  client.write(path);
+  var fileStream = fs.createReadStream(req.body.path);
+  fileStream.on('error', function(err) {
+    console.log(err);
+  });
+
+  fileStream.on('open', function() {
+    fileStream.pipe(client);
+  });
   res.send("File Sent");
 
 })
