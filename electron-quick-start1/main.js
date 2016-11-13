@@ -14,6 +14,8 @@ var bodyParser = require('body-parser');
 var $ = require('jquery');
 var net = require('net');
 var exp = express();
+var JsonSocket = require('json-socket');
+var clients = [];
   exp.use(bodyParser.json());
   exp.use(bodyParser.json({type: 'application:vnd.api+json' }));
   exp.use(bodyParser.urlencoded({extended: true}));
@@ -105,18 +107,34 @@ exp.post('/connect/phone', function(req, res) {
   });
 
   client.on('close', function() {
+    console.log("Connection Closed");
     createServer();
   })
   res.send("connected");
 
-})
+});
+
+exp.post('/connect/server', function(req, res) {
+  var client = new net.Socket();
+  console.log(req.body);
+  client.connnect(9990, req.body.ip, function() {
+    console.log("Connected to Server");
+  });
+    res.send("connected to server");
+});
 
 
 function createServer() {
   var server = net.createServer(function(socket) {
-    socket.write('Echo server\r\n');
-    socket.pipe(socket);
-  })
+  });
+  server.listen(9990);
+  server.on('connection', function(socket) {
+    console.log("Client Connected");
+    socket.on('message', function(message) {
+      //client sent message to server (file)
+    });
+  });
+  console.log("Server Created");
 }
 // run.use(express.static('public'))
 

@@ -1,3 +1,5 @@
+var mode = "";
+
 var TextReceiver = (function() {
     Quiet.setProfilesPrefix("");
     Quiet.setMemoryInitializerPrefix("");
@@ -6,8 +8,22 @@ var TextReceiver = (function() {
     var content;
     var warningbox;
 
+    function connectToServer(data) {
+        mode = "client";
+        msg = {
+            ip: data
+        }
+        console.log(data);
+        $.post("http://localhost:3000/connect/server", msg, function(data, status) {
+            console.log(data);
+            console.log(status);
+        });
+
+    }
+
 
     function connectToPhone(address) {
+        mode = "server";
         data = address.split(':');
         msg = {
             ip: data[0],
@@ -25,10 +41,15 @@ var TextReceiver = (function() {
     function routeMessage(message) {
         if(message.match(/:/g)) {
             alert("Phone Found! " + message);
+            if (mode == "") {
             connectToPhone(message);
+        }
         }
         else {
             alert("Found not phone!");
+            if (mode == "") {
+            connectToServer(message);
+        }
         }
     }
 
