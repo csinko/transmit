@@ -101,7 +101,7 @@ public class SocketService extends IntentService {
 
                 while (running) {
                     Socket socket = serverSocket.accept();
-                    stopService(new Intent(getApplicationContext(), SenderService.class));
+                    stopService(sendServiceIntent);
                     Log.d("SOCKET", "CLIENT Connected");
                     address = socket.getInetAddress();
                     Log.d("SOCKET", address.getHostAddress());
@@ -110,7 +110,11 @@ public class SocketService extends IntentService {
                     out.flush();
                     out.close();
                     socket.close();
+                    sendServiceIntent.removeExtra("message");
+                    sendServiceIntent.putExtra("message", address.getHostAddress().getBytes());
+                    startService(sendServiceIntent);
                     running = false;
+
 
 
                 }
