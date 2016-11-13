@@ -3,7 +3,7 @@
 // All of the Node.js APIs are available in this process.
 
 console.log("STARTING RENDERERR");
-var remote = require('remote');
+const remote = require('remote');
 var dialog = remote.require('dialog');
 var fs = require('fs');
 
