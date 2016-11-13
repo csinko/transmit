@@ -1,7 +1,7 @@
 var TextTransmitter = (function() {
-    Quiet.setProfilesPrefix("/");
-    Quiet.setMemoryInitializerPrefix("/");
-    Quiet.setLibfecPrefix("/");
+    Quiet.setProfilesPrefix("");
+    Quiet.setMemoryInitializerPrefix("");
+    Quiet.setLibfecPrefix("");
     var btn;
     var textbox;
     var warningbox;

@@ -6,11 +6,18 @@ const BrowserWindow = electron.BrowserWindow
 
 const path = require('path')
 const url = require('url')
-var express=require('express');
-var run = require('express')();
-var http = require('http').Server(run);
-var io = require('socket.io')(http);
+var express = require('express');
+var bodyParser = require('body-parser');
+// var run = require('express')();
+// var http = require('http').Server(run);
+// var io = require('socket.io')(http);
 var $ = require('jquery');
+var net = require('net');
+var exp = express();
+  exp.use(bodyParser.json());
+  exp.use(bodyParser.json({type: 'application:vnd.api+json' }));
+  exp.use(bodyParser.urlencoded({extended: true}));
+  //var router = express.Router();
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -23,7 +30,7 @@ function createWindow () {
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'public/receivetext.html'),
+    pathname: path.join(__dirname, 'public/transmit.html'),
     protocol: 'file:',
     slashes: true
   }))
@@ -43,7 +50,7 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-run.use(express.static(__dirname +'/public'))
+exp.use(express.static(__dirname + '/public'))
 
 app.on('ready', createWindow)
 
@@ -64,29 +71,54 @@ app.on('activate', function () {
   }
 })
 
-run.get('/', function(req, res){
-  res.sendFile(__dirname +'/index.html');
-});
+// exp.get('/', function(req, res){
+//   res.sendFile(__dirname +'/index.html');
+// });
 
-io.on('connection', function(socket){
-  console.log('a user connected');
-});
+// io.on('connection', function(socket){
+//   console.log('a user connected');
+// });
 
-io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
-  });
-});
+// io.on('connection', function(socket){
+//   socket.on('chat message', function(msg){
+//     io.emit('chat message', msg);
+//   });
+// });
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
-}); 
+exp.listen(3000);
+// http.listen(3000, function(){
+//   console.log('listening on *:3000');
+// }); 
 
-run.get('/t', function(req, res){
+exp.get('/t', function(req, res){
   res.sendFile(__dirname +'/public/receivetext.html');
 });
 
-run.use(express.static('public'))
+exp.get('/s', function(req, res){
+  res.sendFile(__dirname +'/public/sendtext.html');
+});
+exp.post('/connect/phone', function(req, res) {
+  var client = new net.Socket();
+  console.log(req.body);
+  client.connect(req.body.port, req.body.ip, function() {
+    console.log("Connected to Phone");
+  });
+
+  client.on('close', function() {
+    createServer();
+  })
+  res.send("connected");
+
+})
+
+
+function createServer() {
+  var server = net.createServer(function(socket) {
+    socket.write('Echo server\r\n');
+    socket.pipe(socket);
+  })
+}
+// run.use(express.static('public'))
 
 
 // In this file you can include the rest of your app's specific main process

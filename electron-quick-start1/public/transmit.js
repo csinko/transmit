@@ -3,13 +3,41 @@ var TextReceiver = (function() {
     Quiet.setMemoryInitializerPrefix("");
     Quiet.setLibfecPrefix("");
     var target;
-    var content = new ArrayBuffer(0);
+    var content;
     var warningbox;
 
+
+    function connectToPhone(address) {
+        data = address.split(':');
+        msg = {
+            ip: data[0],
+            port: data[1]
+        }
+        console.log(data);
+        $.post("http://localhost:3000/connect/phone", msg, function(data, status) {
+            console.log(data);
+            console.log(status);
+        });
+
+        }
+    
+
+    function routeMessage(message) {
+        if(message.match(/:/g)) {
+            alert("Phone Found! " + message);
+            connectToPhone(message);
+        }
+        else {
+            alert("Found not phone!");
+        }
+    }
+
     function onReceive(recvPayload) {
+        content = new ArrayBuffer(0);
         content = Quiet.mergeab(content, recvPayload);
-        target.textContent = Quiet.ab2str(content);
-        warningbox.classList.add("hidden");
+        messagereceived = Quiet.ab2str(content);
+        routeMessage(messagereceived);
+
     };
 
     function onReceiverCreateFail(reason) {

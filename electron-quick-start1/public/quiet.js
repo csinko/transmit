@@ -101,13 +101,9 @@ var Quiet = (function() {
             return;
         }
         if (!prefix.endsWith("/")) {
-            //prefix += "/";
+           // prefix += "/";
         }
-        //OLD CODE 
-          var profilesPath = prefix + "quiet-profiles.json";
-        //  
-        //NEW CODE
-        //var profilesPath ="quiet-profiles.json";
+        var profilesPath =  "quiet-profiles.json";
 
         var fetch = new Promise(function(resolve, reject) {
             var xhr = new XMLHttpRequest();
