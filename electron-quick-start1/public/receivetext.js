@@ -1,7 +1,7 @@
 var TextReceiver = (function() {
-    Quiet.setProfilesPrefix("/");
-    Quiet.setMemoryInitializerPrefix("/");
-    Quiet.setLibfecPrefix("/");
+    Quiet.setProfilesPrefix("");//add / if erroR :)
+    Quiet.setMemoryInitializerPrefix("");
+    Quiet.setLibfecPrefix("");
     var target;
     var content = new ArrayBuffer(0);
     var warningbox;
