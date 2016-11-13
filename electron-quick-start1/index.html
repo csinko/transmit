@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello World!</title>
+
+    <!-- Bootstrap Core CSS -->
+  
+
+    <!-- Custom CSS -->
+    <!-- <link href="./css/the-big-picture.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    </style>
+
+
+  </head>
+  <body>
+  <!-- 
+  <h1>Hello World!</h1>
+    All of the Node.js APIs are available in this renderer process. 
+    We are using Node.js <script>document.write(process.versions.node)</script>,
+    Chromium <script>document.write(process.versions.chrome)</script>,
+    and Electron <script>document.write(process.versions.electron)</script>.
+  <button type="button" class="btn btn-default">Create Group</button> 
+  -->
+
+
+<ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+
+
+
+  
+     <!-- Bootstrap Core JavaScript -->
+    <!-- <script src="./js/bootstrap.min.js"></script> -->
+  
+
+<script src="http://10.20.77.222:3000/socket.io/socket.io.js"></script>
+<!--     // <script type="text/javascript" src="quiet.js"></script>
+    // <script type="text/javascript" src="your_project.js"></script>
+    // <script async type="text/javascript" src="quiet-emscripten.js"></script> -->
+
+
+
+
+
+ <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+ <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+ <script src="js/bootstrap.min.js"></script> 
+ <script>if (window.module) module = window.module;</script>
+  
+
+
+
+
+
+
+
+
+<script>
+  var socket = io("http://10.20.77.222:3000");
+    $('form').submit(function(){
+    socket.emit('chat message', $('#m').val());
+    $('#m').val('');
+    return false;
+  });
+  socket.on('chat message', function(msg){
+    $('#messages').append($('<li>').text(msg));
+  });
+</script>
+
+
+
+  </body>
+
+  <script>
+    // You can also require other files to run in this process
+    require('./renderer.js')
+  </script>
+</html>
+ 
