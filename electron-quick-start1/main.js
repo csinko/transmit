@@ -90,7 +90,7 @@ app.on('activate', function () {
 exp.listen(3000);
 // http.listen(3000, function(){
 //   console.log('listening on *:3000');
-// }); 
+// });
 
 exp.get('/t', function(req, res){
   res.sendFile(__dirname +'/public/receivetext.html');
@@ -117,7 +117,7 @@ exp.post('/connect/phone', function(req, res) {
 exp.post('/connect/server', function(req, res) {
   var client = new net.Socket();
   console.log(req.body);
-  client.connnect(9990, req.body.ip, function() {
+  client.connect(9990, req.body.ip, function() {
     console.log("Connected to Server");
   });
     res.send("connected to server");
