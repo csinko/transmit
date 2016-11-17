@@ -1,0 +1,4 @@
+
+> electron-quick-start@1.0.0 start /home/rratcliffe/github/transmit/electron-quick-start1
+> electron .
+
